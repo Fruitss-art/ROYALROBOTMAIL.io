@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>Royal Robot Mail - Autonomous Indoor Letter Distributer (MAIL Dis)</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+ <div>
+ <div>
+ <div>
+ <div>
+ <img src="logo.png" alt="Royal Robot Mail Logo" onerror="this.onerror=null; this.src='https://placehold.co/120x60/c8102e/ffffff?text=ROYAL+MAIL';">
+ </div>
+ <h2>ROYAL ROBOT MAIL</h2>
+ <p>UoB Engineering (Y8) Autonomous System Portal</p>
+ </div>
+ <div>
+ <button type="button" onclick="selectLoginRole('worker')">
+ <span>Worker Login</span>
+ </button>
+ <button type="button" onclick="selectLoginRole('recipient')">
+ <span>Recipient Login</span>
+ </button>
+ </div>
+ <form onsubmit="handleLoginSubmit(event)">
+ <div>
+ <label>Worker / Staff ID</label>
+ <input type="text" placeholder="e.g. WORKER01">
+ </div>
+ <div>
+ <label>Security PIN / Password</label>
+ <input type="password" placeholder="••••••••">
+ </div>
+ <button type="submit">
+ <span>Authenticate & Open Worker Dashboard</span>
+ </button>
+ </form>
+ <div>
+ <p>Project Demo Shortcuts</p>
+ <div>
+ <button type="button" onclick="demoLogin('worker')">
+ ⚡ Quick Worker Login
+ </button>
+ <button type="button" onclick="demoLogin('recipient')">
+ ⚡ Quick Recipient Login
+ </button>
+ </div>
+ </div>
+ </div>
+ </div>
+ <header>
+ <div>
+ <div>
+ <div>
+ <img src="logo.png" alt="Royal Robot Mail Logo" onerror="this.onerror=null; this.src='https://placehold.co/80x80/c8102e/ffffff?text=RRM';">
+ <div>
+ <div>
+ <h1>ROYAL ROBOT MAIL</h1>
+ <span>MAIL Dis v2.4</span>
+ </div>
+ <p>UoB Engineering (Y8) Autonomous Delivery System</p>
+ </div>
+ </div>
+ <div>
+ <div>
+ <div>
+ <p>Post-Room Operator</p>
+ <span>Worker Mode</span>
+ </div>
+ </div>
+ <div>
+ <button type="button" onclick="setRole('worker')">
+ <span>Worker</span>
+ </button>
+ <button type="button" onclick="setRole('recipient')">
+ <span>Recipient</span>
+ </button>
+ </div>
+ <div>
+ <button type="button" onclick="toggleAccessibility()" title="Toggle High Contrast Mode">
+ </button>
+ <button type="button" onclick="speakVoicePrompt('Welcome to Royal Robot Mail Service.')" title="Simulate Voice Prompt">
+ </button>
+ </div>
+ <button type="button" onclick="logout()" title="Log Out">
+ <span>Logout</span>
+ </button>
+ </div>
+ </div>
+ </div>
+ </header>
+ <main>
+ <div>
+ <section>
+ <div>
+ <div>
+ <p>Robot Battery Level</p>
+ <h3>84%</h3>
+ <p>~3.2 hrs operational</p>
+ </div>
+ <div>
+ </div>
+ </div>
+ <div>
+ <div>
+ <p>Current Y8 Location</p>
+ <h3>Floor 2 - Corridor B</h3>
+ <p>En route to Room Y8-214</p>
+ </div>
+ <div>
+ </div>
+ </div>
+ <div>
+ <div>
+ <p>Delivery Status</p>
+ <div>
+ <h3>Active Delivery</h3>
+ </div>
+ <p>Speed: 1.0 m/s (Nominal)</p>
+ </div>
+ <div>
+ </div>
+ </div>
+ </section>
+ <div>
+ <div>
+ <div>
+ <div>
+ <div>
+ <h2>
+ <span>5-Compartment Solenoid Stack</span>
+ </h2>
+ <p>Physical robot chassis compartment status</p>
+ </div>
+ <span>48 x 38cm</span>
+ </div>
+ <div>
+ </div>
+ </div>
+ </div>
+ <div>
+ <div>
+ <h2>
+ <span>Post-Room Parcel Dispatch</span>
+ </h2>
+ <p>Assign letter or package QR node to robot stack compartment</p>
+ <form onsubmit="handleParcelDispatch(event)">
+ <div>
+ <label>Recipient Name</label>
+ <input type="text" required placeholder="e.g. Dr. George Adamopoulos">
+ </div>
+ <div>
+ <label>Target Y8 Room Number</label>
+ <input type="text" required placeholder="e.g. Y8-302">
+ </div>
+ <div>
+ <label>Assign Compartment Box</label>
+ <select>
+ <option value="1">Box 1 (Top)</option>
+ <option value="2">Box 2</option>
+ <option value="3">Box 3 (Middle)</option>
+ <option value="4">Box 4</option>
+ <option value="5">Box 5 (Bottom)</option>
+ </select>
+ </div>
+ <div>
+ <label>Mail Ref Code</label>
+ <input type="text" required placeholder="e.g. RRM-PARCEL-889">
+ </div>
+ <div>
+ <button type="submit">
+ <span>Generate QR Code & Load Box</span>
+ </button>
+ </div>
+ </form>
+ </div>
+ <div>
+ <div>
+ <div>
+ <h2>
+ <span>Optimized Delivery Queue</span>
+ </h2>
+ <p>Reorder node sequence to optimize Y8 floor travel route</p>
+ </div>
+ <button type="button" onclick="optimizeRoute()">
+ <span>Auto-Optimize</span>
+ </button>
+ </div>
+ <div>
+ <table>
+ <thead>
+ <tr>
+ <th>Seq</th>
+ <th>Box</th>
+ <th>Recipient</th>
+ <th>Room</th>
+ <th>Status</th>
+ <th>Queue Actions</th>
+ </tr>
+ </thead>
+ <tbody>
+ </tbody>
+ </table>
+ </div>
+ </div>
+ </div>
+ </div>
+ <section>
+ <div>
+ <div>
+ <h2>
+ <span>Auditable Delivery Logs</span>
+ </h2>
+ <p>Complete audit trail for post-room operations and compliance logging</p>
+ </div>
+ <div>
+ <input type="text" oninput="filterLogs()" placeholder="Search recipient or room...">
+ <select onchange="filterLogs()">
+ <option value="all">All Logs</option>
+ <option value="completed">Delivered</option>
+ <option value="failed">Failed / Timeout</option>
+ <option value="rescheduled">Rescheduled</option>
+ </select>
+ </div>
+ </div>
+ <div>
+ <table>
+ <thead>
+ <tr>
+ <th>Log ID</th>
+ <th>Timestamp</th>
+ <th>Recipient</th>
+ <th>Location</th>
+ <th>Box #</th>
+ <th>Outcome</th>
+ <th>Actions</th>
+ </tr>
+ </thead>
+ <tbody>
+ </tbody>
+ </table>
+ </div>
+ </section>
+ </div>
+ <div>
+ <div>
+ <div>
+ <span>Recipient Portal</span>
+ <h2>Welcome, Dr. George Adamopoulos</h2>
+ <p>University of Birmingham - Y8 School of Engineering</p>
+ </div>
+ <div>
+ <button type="button" onclick="speakVoicePrompt('Your parcel is inside Compartment Box 3. Please scan your QR code at the robot screen.')">
+ <span>Listen Voice Instructions</span>
+ </button>
+ </div>
+ </div>
+ <div>
+ <div>
+ <div>
+ <div>
+ <div>
+ <span>Active Parcel Delivery</span>
+ <h3>Item: Confidential Technical Papers</h3>
+ <p>Tracking: RRM-Y8-2026-994</p>
+ </div>
+ <span>
+ <span>Robot En Route</span>
+ </span>
+ </div>
+ <div>
+ <div>
+ <div>
+ </div>
+ <div>
+ <p>Estimated Arrival Time</p>
+ <p>14:25 PM (In ~8 mins)</p>
+ </div>
+ </div>
+ <div>
+ <p>Delivery Location</p>
+ <p>Office Y8-302 (Floor 3)</p>
+ </div>
+ </div>
+ <div>
+ <p>Delivery Lifecycle Progress</p>
+ <div>
+ <div>
+ 1. Scanned
+ </div>
+ <div>
+ 2. Loaded
+ </div>
+ <div>
+ 3. In Transit
+ </div>
+ <div>
+ 4. QR Unlock
+ </div>
+ </div>
+ </div>
+ </div>
+ <div>
+ <h3>
+ <span>Need to Reschedule or Change Location?</span>
+ </h3>
+ <p>Delay the robot run or update your floor room before arrival.</p>
+ <form onsubmit="handleRecipientReschedule(event)">
+ <div>
+ <label>Preferred Time Window</label>
+ <select>
+ <option value="asap">Deliver as soon as possible</option>
+ <option value="15min">Hold for 15 minutes</option>
+ <option value="1hr">Reschedule for +1 Hour</option>
+ <option value="tomorrow">Hold in Post Room for Tomorrow</option>
+ </select>
+ </div>
+ <div>
+ <label>Update Y8 Room Number</label>
+ <input type="text" placeholder="e.g. Y8-204">
+ </div>
+ <div>
+ <button type="submit">
+ Submit Reschedule Request
+ </button>
+ </div>
+ </form>
+ </div>
+ </div>
+ <div>
+ <div>
+ <div>
+ <span>Box #3 Solenoid Key</span>
+ <h3>Your Authentication QR Code</h3>
+ <p>Present this code to the robot's front webcam camera to release the lock.</p>
+ </div>
+ <div>
+ <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+ <rect x="5" y="5" width="25" height="25" rx="3" fill="#0f172a" />
+ <rect x="9" y="9" width="17" height="17" rx="2" fill="#ffffff" />
+ <rect x="13" y="13" width="9" height="9" fill="#c8102e" />
+ <rect x="70" y="5" width="25" height="25" rx="3" fill="#0f172a" />
+ <rect x="74" y="9" width="17" height="17" rx="2" fill="#ffffff" />
+ <rect x="78" y="13" width="9" height="9" fill="#c8102e" />
+ <rect x="5" y="70" width="25" height="25" rx="3" fill="#0f172a" />
+ <rect x="9" y="74" width="17" height="17" rx="2" fill="#ffffff" />
+ <rect x="13" y="78" width="9" height="9" fill="#c8102e" />
+ <rect x="35" y="10" width="8" height="8" fill="#0f172a" />
+ <rect x="45" y="10" width="15" height="5" fill="#0f172a" />
+ <rect x="35" y="25" width="10" height="10" fill="#c8102e" />
+ <rect x="50" y="25" width="8" height="12" fill="#0f172a" />
+ <rect x="10" y="35" width="12" height="12" fill="#0f172a" />
+ <rect x="25" y="45" width="15" height="8" fill="#0f172a" />
+ <rect x="45" y="45" width="12" height="12" fill="#c8102e" />
+ <rect x="65" y="35" width="25" height="8" fill="#0f172a" />
+ <rect x="80" y="48" width="10" height="15" fill="#0f172a" />
+ <rect x="35" y="70" width="12" height="8" fill="#0f172a" />
+ <rect x="52" y="65" width="15" height="15" fill="#0f172a" />
+ <rect x="72" y="72" width="18" height="18" fill="#c8102e" />
+ </svg>
+ </div>
+ <div>
+ <span>Manual Backup PIN</span>
+ <span>8 4 9 2</span>
+ </div>
+ <div>
+ <button type="button" onclick="simulateWebcamScan()">
+ <span>Simulate Webcam QR Scan at Robot</span>
+ </button>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </main>
+ <footer>
+ <div>
+ <div>
+ <span>RED TEAM Project</span> • University of Birmingham (Y8 Engineering)
+ </div>
+ <div>
+ <span>GDPR Encrypted</span>
+ <span>BS EN ISO 13482:2014 Compliant</span>
+ </div>
+ </div>
+ </footer>
+</body>
+</html>
