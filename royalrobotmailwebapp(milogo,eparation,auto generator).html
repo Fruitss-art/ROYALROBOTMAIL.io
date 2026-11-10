@@ -340,29 +340,22 @@
  <p>Present this code to the robot's front webcam camera to release the lock.</p>
  </div>
  <div>
- <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
- <rect x="5" y="5" width="25" height="25" rx="3" fill="#0f172a" />
- <rect x="9" y="9" width="17" height="17" rx="2" fill="#ffffff" />
- <rect x="13" y="13" width="9" height="9" fill="#c8102e" />
- <rect x="70" y="5" width="25" height="25" rx="3" fill="#0f172a" />
- <rect x="74" y="9" width="17" height="17" rx="2" fill="#ffffff" />
- <rect x="78" y="13" width="9" height="9" fill="#c8102e" />
- <rect x="5" y="70" width="25" height="25" rx="3" fill="#0f172a" />
- <rect x="9" y="74" width="17" height="17" rx="2" fill="#ffffff" />
- <rect x="13" y="78" width="9" height="9" fill="#c8102e" />
- <rect x="35" y="10" width="8" height="8" fill="#0f172a" />
- <rect x="45" y="10" width="15" height="5" fill="#0f172a" />
- <rect x="35" y="25" width="10" height="10" fill="#c8102e" />
- <rect x="50" y="25" width="8" height="12" fill="#0f172a" />
- <rect x="10" y="35" width="12" height="12" fill="#0f172a" />
- <rect x="25" y="45" width="15" height="8" fill="#0f172a" />
- <rect x="45" y="45" width="12" height="12" fill="#c8102e" />
- <rect x="65" y="35" width="25" height="8" fill="#0f172a" />
- <rect x="80" y="48" width="10" height="15" fill="#0f172a" />
- <rect x="35" y="70" width="12" height="8" fill="#0f172a" />
- <rect x="52" y="65" width="15" height="15" fill="#0f172a" />
- <rect x="72" y="72" width="18" height="18" fill="#c8102e" />
- </svg>
+   <!-- 1. External library script tag -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+
+    <!-- 2. Your inline JavaScript (must be wrapped in <script> tags) -->
+    <script>
+        const qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "https://your-link-here.com",
+            width: 128,
+            height: 128,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    </script>
+</body>
+</html>
  </div>
  <div>
  <span>Manual Backup PIN</span>
